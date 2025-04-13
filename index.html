@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本新闻 | 简讯新闻</title>
+    <style>
+        /* 基础样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f8f9fa;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 白色导航栏 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 2rem;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #4285f4;
+        }
+        
+        /* 简洁导航菜单 */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 2rem;
+        }
+        
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #4285f4;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #4285f4;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        /* 文章内容区 */
+        .article-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .article-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article-title {
+            font-size: 1.8rem;
+            font-weight: normal;
+            color: #222;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        
+        .article-meta {
+            color: #888;
+            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .article-date {
+            color: #ea4335;
+        }
+        
+        .article-source {
+            font-style: italic;
+        }
+        
+        .article-category {
+            background: #f1f3f4;
+            color: #4285f4;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        /* 文章正文样式 */
+        .article-content {
+            line-height: 1.8;
+            color: #444;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        .article-content h2 {
+            font-size: 1.4rem;
+            color: #222;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article-content h3 {
+            font-size: 1.2rem;
+            color: #222;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid #4285f4;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .article-content a {
+            color: #4285f4;
+            text-decoration: none;
+        }
+        
+        .article-content a:hover {
+            text-decoration: underline;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #4285f4;
+        }
+        
+        .copyright {
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 0 15px;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            nav li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            
+            .article-container {
+                padding: 1.5rem;
+            }
+            
+            .article-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 白色导航栏 -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">简<span>讯</span></a>
+            <nav>
+                <ul>
+                    <li><a href="https://yuteng0412.github.io/cyt/">首页</a></li>
+                    <li><a href="#politics">文化</a></li>
+                    <li><a href="#business">民俗</a></li>
+                    <li><a href="#tech">相关新闻</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 文章内容 -->
+    <main class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">国务院发布《新一代人工智能发展规划》 2030年建成全球领先创新体系</h1>
+            <div class="article-meta">
+                <span class="article-date">2023年9月15日</span>
+                <span class="article-source">来源：新华社</span>
+                <span class="article-category">政策解读</span>
+            </div>
+        </div>
+        
+        <div class="article-content">
+            <p>国务院近日印发《新一代人工智能发展规划》（以下简称《规划》），提出了面向2030年我国新一代人工智能发展的指导思想、战略目标、重点任务和保障措施，部署构筑我国人工智能发展的先发优势，加快建设创新型国家和世界科技强国。</p>
+            
+            <h2>三阶段战略目标</h2>
+            
+            <p>《规划》明确了我国新一代人工智能发展的战略目标：</p>
+            
+            <p>到2020年，人工智能总体技术和应用与世界先进水平同步，人工智能产业成为新的重要经济增长点，人工智能技术应用成为改善民生的新途径。</p>
+            
+            <p>到2025年，人工智能基础理论实现重大突破，部分技术与应用达到世界领先水平，人工智能成为带动我国产业升级和经济转型的主要动力，智能社会建设取得积极进展。</p>
+            
+            <p>到2030年，人工智能理论、技术与应用总体达到世界领先水平，成为世界主要人工智能创新中心，智能经济、智能社会取得明显成效，为跻身创新型国家前列和经济强国奠定重要基础。</p>
+            
+            <blockquote>
+                "人工智能是引领未来的战略性技术，世界主要发达国家都把发展人工智能作为提升国家竞争力、维护国家安全的重大战略。"
+            </blockquote>
+            
+            <h2>六大重点任务</h2>
+            
+            <h3>1. 构建开放协同的人工智能科技创新体系</h3>
+            <p>加强新一代人工智能基础理论研究，突破关键共性技术，统筹布局人工智能创新平台，加快培养聚集人工智能高端人才。</p>
+            
+            <h3>2. 培育高端高效的智能经济</h3>
+            <p>大力发展人工智能新兴产业，加快推进产业智能化升级，打造人工智能创新高地。</p>
+            
+            <h3>3. 建设安全便捷的智能社会</h3>
+            <p>发展便捷高效的智能服务，推进社会治理智能化，利用人工智能提升公共安全保障能力。</p>
+            
+            <h3>4. 加强人工智能领域军民融合</h3>
+            <p>促进人工智能技术军民双向转化，加强军民人工智能技术通用标准体系建设。</p>
+            
+            <h3>5. 构建泛在安全高效的智能化基础设施体系</h3>
+            <p>加强网络、大数据、高效能计算等基础设施建设，形成适应智能经济、智能社会需要的基础设施体系。</p>
+            
+            <h3>6. 前瞻布局新一代人工智能重大科技项目</h3>
+            <p>针对我国人工智能发展的迫切需求和薄弱环节，设立新一代人工智能重大科技项目。</p>
+            
+            <h2>四大保障措施</h2>
+            
+            <p>为确保《规划》顺利实施，《规划》提出了四方面保障措施：</p>
+            
+            <p>一是加强组织实施，成立人工智能规划推进办公室，统筹推进规划实施；二是加大资金支持，形成财政引导、市场主导的资金支持机制；三是完善政策法规，制定促进人工智能发展的法律法规和伦理规范；四是加强国际合作，积极参与人工智能全球治理。</p>
+            
+            <p>《规划》强调，要把握人工智能发展的重大历史机遇，以提升新一代人工智能科技创新能力为主攻方向，发展智能经济，建设智能社会，维护国家安全，构筑知识群、技术群、产业群互动融合和人才、制度、文化相互支撑的生态系统，全面增强国家创新能力和竞争力。</p>
+            <a href="https://kns.cnki.net/kcms2/article/abstract?v=O_n6o0K2eipO8yo6OOSUTV8tIx7co-dIZy_6c_AVBl6NnA01sgqZlME6IhBsoeIpNgtQmfgT2FhBbbsMDWTzDRH7Q1dPJ1BJCrOWY7zKShh5zgwteNEwKWVNH0Awy0ZLsB5cgsl7Nb-GOO38H7IoSxsBU8__rk6zD9auGvo0tmZQnSVrLMju4Q==&uniplatform=NZKPT&language=CHS" class="read-more">参考文献 →</a>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <a href="#">联系方式</a>
+            <a href="#">版权声明</a>
+            <a href="#">隐私政策</a>
+            <a href="#">加入我们</a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 简讯新闻 /p>
+        </div>
+    </footer>
+</body>
+</html>
